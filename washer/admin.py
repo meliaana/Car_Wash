@@ -16,12 +16,14 @@ class WasherAdmin(admin.ModelAdmin):
 
 @admin.register(Cabin)
 class CabinAdmin(admin.ModelAdmin):
-    pass
+    def has_change_permission(self, request, obj=None):
+        if obj is not None:
+            return False
+        return super().has_change_permission(request, obj=obj)
 
 
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
-    verbose_name = 'Employee'
-    verbose_name_plural = "Employees"
+    pass
 
 
