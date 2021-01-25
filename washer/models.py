@@ -4,8 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Washer(models.Model):
-
-    company_id = models.CharField(verbose_name=_('Company id'), max_length=255, unique=True, default='')  # company_id
+    # company_id = models.CharField(verbose_name=_('Company id'), max_length=255, unique=True, default='')
     name = models.CharField(verbose_name=_('Name'), max_length=255)
     location = models.CharField(max_length=250)
     cabin_number = models.PositiveSmallIntegerField()
@@ -61,6 +60,4 @@ class EmployeeToWasher(models.Model):
     employee = models.ForeignKey(to='washer.Employee', on_delete=models.CASCADE, related_name='employee_to_washer')
     role = models.PositiveSmallIntegerField(choices=EmployeeRoleChoices.choices,
                                             default=EmployeeRoleChoices.Washer)
-    salary = models.IntegerField(default=0)
-
-
+    salary = models.PositiveIntegerField()
