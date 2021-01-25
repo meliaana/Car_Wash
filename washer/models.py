@@ -3,10 +3,23 @@ from washer.choices import EmployeeRoleChoices, GenderChoices
 from django.utils.translation import gettext_lazy as _
 
 
-class Washer(models.Model):
-    # company_id = models.CharField(verbose_name=_('Company id'), max_length=255, unique=True, default='')
+class Company(models.Model):
+    company_id = models.CharField(verbose_name=_('Company_id'), max_length=255, unique=True)
     name = models.CharField(verbose_name=_('Name'), max_length=255)
-    location = models.CharField(max_length=250)
+
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = _('Company')
+        verbose_name_plural = _('Companies')
+
+
+class Washer(models.Model):
+    company = models.ForeignKey(to='washer.Company', on_delete=models.CASCADE, related_name='washer')
+    name = models.CharField(verbose_name=_('Name'), max_length=255)
+    location = models.CharField(max_length=250, default='Earth')
+
     cabin_number = models.PositiveSmallIntegerField()
 
     def __str__(self):

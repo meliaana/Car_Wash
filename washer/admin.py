@@ -1,7 +1,12 @@
 from django.contrib import admin
 from django.contrib.admin.options import InlineModelAdmin
 
-from washer.models import Washer, Cabin, Employee, EmployeeToWasher
+from washer.models import Washer, Cabin, Employee, EmployeeToWasher, Company
+
+
+@admin.register(Company)
+class CompanyAdmin(admin.ModelAdmin):
+    pass
 
 
 class EmployeeToWasherInline(admin.TabularInline):
