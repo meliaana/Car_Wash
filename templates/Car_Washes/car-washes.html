@@ -1,0 +1,11 @@
+{% block content%}
+<html>
+<body>
+<h1>Car Washes:</h1>
+{% for wash in car_washes %}
+    <a href="{% url 'car-wash' wash.pk %} ">{{  wash }}</a>
+    <br>
+{% endfor %}
+</body>
+</html>
+{% endblock content %}

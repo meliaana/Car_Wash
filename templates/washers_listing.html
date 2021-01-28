@@ -1,0 +1,12 @@
+{% block content%}
+<html>
+<body>
+<h1>Washers:</h1>
+{% for person in washers %}
+
+    <a href="{% url 'washer' person.pk %} ">{{  person  }}</a>
+    <br>
+{% endfor %}
+</body>
+</html>
+{% endblock content %}

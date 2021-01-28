@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h2>{{ car_wash.name }}</h2>
+<h2>{{ car_wash.location }}</h2>
+{% for wash in car_wash.carwash_to_car.all %}
+    <h1>type = {{ wash.type }}, price = {{ wash.price }}</h1>
+{% endfor %}
+<h1>Washers:</h1>
+{% for washer in car_wash.washers.all %}
+    <a href="{% url 'washer' washer.pk %} ">{{  washer  }}</a>
+{% endfor %}
+
+
+
+</body>
+</html>
