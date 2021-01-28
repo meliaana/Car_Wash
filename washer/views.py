@@ -3,8 +3,6 @@ from washer.models import Washer, CarWash
 from datetime import datetime, date
 
 
-
-
 def car_wash_listing(request):
     car_washes = CarWash.objects.all()
     return render(
