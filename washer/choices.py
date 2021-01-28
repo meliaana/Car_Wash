@@ -7,9 +7,7 @@ class GenderChoices(IntegerChoices):
     Other = 3
 
 
-class EmployeeRoleChoices(IntegerChoices):
-    Owner = 1
-    Manager = 2
-    Washer = 3
-    Cleaner = 4
-    Other = 5
+class CarTypeChoices(IntegerChoices):
+    Sedan = 1
+    Van = 2
+    Other = 3

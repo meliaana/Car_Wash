@@ -1,22 +1,16 @@
 from django.contrib import admin
-from django.contrib.admin.options import InlineModelAdmin
 
-from washer.models import Washer, Cabin, Employee, EmployeeToWasher, Company
-
-
-@admin.register(Company)
-class CompanyAdmin(admin.ModelAdmin):
-    pass
+from washer.models import CarWash, Cabin, Washer, Car, CarWashToType, Order
 
 
-class EmployeeToWasherInline(admin.TabularInline):
-    model = EmployeeToWasher
+class CarWashToTypeInline(admin.TabularInline):
+    model = CarWashToType
     extra = 1
 
 
-@admin.register(Washer)
-class WasherAdmin(admin.ModelAdmin):
-    inlines = (EmployeeToWasherInline, )
+@admin.register(CarWash)
+class CarWashAdmin(admin.ModelAdmin):
+    inlines = (CarWashToTypeInline, )
 
 
 @admin.register(Cabin)
@@ -27,8 +21,16 @@ class CabinAdmin(admin.ModelAdmin):
         return super().has_change_permission(request, obj=obj)
 
 
-@admin.register(Employee)
-class EmployeeAdmin(admin.ModelAdmin):
+@admin.register(Washer)
+class WasherAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Car)
+class CarAdmin(admin.ModelAdmin):
+    pass
