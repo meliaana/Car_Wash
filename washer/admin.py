@@ -28,7 +28,7 @@ class WasherAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    pass
+    readonly_fields = ('price',)
 
 
 @admin.register(Car)

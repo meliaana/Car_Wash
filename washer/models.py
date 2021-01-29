@@ -33,6 +33,9 @@ class Cabin(models.Model):
 class Washer(models.Model):
     car_wash = models.ForeignKey(to='washer.CarWash', on_delete=models.CASCADE, related_name='washers')
 
+    #TODO
+    #profile_pic =
+
     name = models.CharField(max_length=100)
     surname = models.CharField(max_length=100, default="")
     phone_number = models.CharField(verbose_name=_('Phone number'), max_length=125, default='')
@@ -68,6 +71,13 @@ class Order(models.Model):
 
     order_time = models.DateTimeField()
     completion_time = models.DateTimeField()
+    price = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+
+    def save(self, *args, **kwargs):
+        carwashtotype = CarWashToType.objects.filter(car_washer=self.car_wash)
+        price = CarWashToType.objects.get(type=self.car.type).price
+        self.price = price
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f'Order of: {self.order_time}'
@@ -82,7 +92,3 @@ class CarWashToType(models.Model):
     type = models.PositiveSmallIntegerField(choices=CarTypeChoices.choices)
 
     price = models.IntegerField(default=0)
-
-
-
-
