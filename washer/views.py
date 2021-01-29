@@ -48,21 +48,21 @@ def washer_detail(request, pk):
     year_sal = 0
 
     for ords in orders:
-
         price = ords.price
-        all_salary += price
+        washer_sal = ords.price * washer.percentage
+        all_salary += washer_sal
         current_week = datetime.now().isocalendar()[1]
         completion_week = ords.completion_time.isocalendar()[1]
 
         if completion_week == current_week:
             orders_week.append(ords)
-            week_sal += price
+            week_sal += washer_sal
         if ords.completion_time.month == datetime.now().month:
             orders_month.append(ords)
-            month_sal += price
+            month_sal += washer_sal
         if ords.completion_time.year == datetime.now().year:
             orders_year.append(ords)
-            year_sal += price
+            year_sal += washer_sal
 
     return render(request,
                   "washer-detail.html",
