@@ -41,7 +41,7 @@ class Washer(models.Model):
     phone_number = models.CharField(verbose_name=_('Phone number'), max_length=125, default='')
     gender = models.PositiveSmallIntegerField(choices=GenderChoices.choices,
                                               default=GenderChoices.Other)
-    percentage = models.FloatField()
+    percentage = models.DecimalField(max_digits=4, decimal_places=3, default=0)
 
     def __str__(self):
         return f'{self.name} {self.surname}'
