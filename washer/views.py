@@ -21,7 +21,7 @@ def car_wash_detail(request, pk):
                   "Car_Washes/car-wash-detail.html",
                   context={
                       "car_wash": car_wash,
-                      "all_salary" : money_made
+                      "all_salary": money_made
                   })
 
 
@@ -49,6 +49,7 @@ def washer_detail(request, pk):
 
     for ords in orders:
         price = ords.price
+        # TODO (28.00000$)
         washer_sal = ords.price * washer.percentage
         all_salary += washer_sal
         current_week = datetime.now().isocalendar()[1]
@@ -71,7 +72,7 @@ def washer_detail(request, pk):
                       "orders_week": orders_week,
                       "orders_month": orders_month,
                       "orders_year": orders_year,
-                      "all_salary":  all_salary,
+                      "all_salary": all_salary,
                       "month_salary": month_sal,
                       "week_salary": week_sal,
                       "year_salary": year_sal,
