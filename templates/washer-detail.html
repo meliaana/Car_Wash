@@ -59,7 +59,7 @@ button:hover, a:hover {
 </div>
 
 <ul type = "square">
-    <h1>All Orders:</h1>
+    <h1>All Orders({{ all_salary }}$):</h1>
 {% for ord in washer.order.all %}
         <li>order time:{{ ord.order_time }}  -- order completion time:{{ ord.completion_time }} </li>
 {% endfor %}
@@ -68,14 +68,14 @@ button:hover, a:hover {
 
 
 <ul type = "square">
-<h1>Orders of This Week :</h1>
+<h1>Orders of This Week({{ week_salary}}$) :</h1>
 {% for ord in orders_week %}
 <li>order time:{{ ord.order_time }}  -- order completion time:{{ ord.completion_time }} </li>
 {% endfor %}
 </ul>
 
 <ul type = "square">
-<h1>Orders of This Month :</h1>
+<h1>Orders of This Month ({{ month_salary }}$):</h1>
 {% for ord in orders_month %}
     <li>order time:{{ ord.order_time}}  -- order completion time:{{ ord.completion_time }} </li>
 {% endfor %}
@@ -83,7 +83,7 @@ button:hover, a:hover {
 </ul>
 
 <ul type = "square">
-<h1>Orders of This Year :</h1>
+<h1>Orders of This Year({{ year_salary }}$) :</h1>
 {% for ord in orders_year %}
         <li>order time:{{ ord.order_time }}  -- order completion time:{{ ord.completion_time }} </li>
 {% endfor %}
