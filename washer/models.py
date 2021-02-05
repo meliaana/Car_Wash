@@ -11,37 +11,28 @@ class CarWash(models.Model):
     def __str__(self):
         return f'{self.name}'
 
+    def space_count(self):
+        current_orders = Order.objects.filter(car_wash=self, completion_time__isnull=True).count()
+        return self.cabins - current_orders
+
     class Meta:
         verbose_name = _('CarWash')
         verbose_name_plural = _('CarWash')
 
 
-class Cabin(models.Model):
-    car_wash = models.ForeignKey('washer.CarWash', on_delete=models.CASCADE, related_name="cabin")
-
-    number = models.PositiveSmallIntegerField()
-    is_empty = models.BooleanField(default=True)
-
-    def __str__(self):
-        return f'Cabin of {self.car_wash} N.{self.number}'
-
-    class Meta:
-        verbose_name = _('Cabin')
-        verbose_name_plural = _('Cabins')
-
-
 class Washer(models.Model):
     car_wash = models.ForeignKey(to='washer.CarWash', on_delete=models.CASCADE, related_name='washers')
 
-    #TODO
-    #profile_pic =
+    # TODO
+    # profile_pic =
 
     name = models.CharField(max_length=100)
     surname = models.CharField(max_length=100, default="")
     phone_number = models.CharField(verbose_name=_('Phone number'), max_length=125, default='')
     gender = models.PositiveSmallIntegerField(choices=GenderChoices.choices,
                                               default=GenderChoices.Other)
-    percentage = models.DecimalField(max_digits=4, decimal_places=3, default=0)
+    base_salary = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    percentage = models.DecimalField(max_digits=3, decimal_places=2, default=0)
 
     def __str__(self):
         return f'{self.name} {self.surname}'
@@ -52,12 +43,12 @@ class Washer(models.Model):
 
 
 class Car(models.Model):
-    name = models.CharField(max_length=10, default='')
+    plate = models.CharField(max_length=10, default='')
     type = models.PositiveSmallIntegerField(choices=CarTypeChoices.choices,
                                             default=CarTypeChoices.Other)
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.plate}'
 
     class Meta:
         verbose_name = _('Car')
@@ -70,13 +61,13 @@ class Order(models.Model):
     washer = models.ForeignKey(to='washer.Washer', on_delete=models.CASCADE, related_name='order')
 
     order_time = models.DateTimeField()
-    completion_time = models.DateTimeField()
-    price = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    completion_time = models.DateTimeField(null=True, blank=True)
+    price = models.DecimalField(max_digits=4, decimal_places=2, default=0)
 
     def save(self, *args, **kwargs):
-        carwashtotype = CarWashToType.objects.filter(car_washer=self.car_wash)
-        price = CarWashToType.objects.get(type=self.car.type).price
-        self.price = price
+        price = CarWashToType.objects.get(car_washer=self.car_wash, type=self.car.type).price
+        if not self.price:
+            self.price = price
         super().save(*args, **kwargs)
 
     def __str__(self):
