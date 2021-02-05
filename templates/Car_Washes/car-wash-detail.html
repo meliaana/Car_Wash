@@ -5,15 +5,26 @@
 </head>
 <body>
 <h2>{{ car_wash.name }}</h2>
+<p>Money Made: {{ money_made }}$</p>
 <h2>{{ car_wash.location }}</h2>
 {% for wash in car_wash.carwash_to_car.all %}
-    <h1>type = {{ wash.type }}, price = {{ wash.price }}</h1>
+    <h1>{{ wash.get_type_display }} - {{ wash.price }}$</h1>
 {% endfor %}
+
+
+{% if car_wash.space_count == 0 %}
+     <p>Sorry! No space!</p>
+{# {% elif car_wash.space_count == 1 %}#}
+{#     <p>Currently I have {{ car_wash.space_count }} space</p>#}
+{% else %}
+     <p>Currently I have {{ car_wash.space_count }} space</p>
+{% endif %}
+
+
 <h1>Washers:</h1>
 {% for washer in car_wash.washers.all %}
     <a href="{% url 'washer' washer.pk %} ">{{  washer  }}</a>
 {% endfor %}
-
 
 
 </body>

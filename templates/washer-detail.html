@@ -1,3 +1,5 @@
+
+{% block content %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,62 +40,38 @@ a {
 button:hover, a:hover {
   opacity: 0.7;
 }
-
-
-
-
 </style>
 </head>
+
 <body>
 
 <h2 style="text-align:left">Profile Card:</h2>
-
+    <div class="row">
+        <div class="col s12 m7">
 <div class="card">
-  <img src="/w3images/team2.jpg" alt="Profile Pic" style="width:100%">
+  <img src="#" alt="Profile Pic" style="width:100%">
   <h1>{{ washer.name}} {{ washer.surname }}</h1>
-  <p class="title">Washer </p>
+  <p class="title"> Washer </p>
   <p>{{ washer.car_wash }}</p>
+    <p>Base Salary:{{ washer.base_salary }}$</p>
   <p>{{ washer.percentage }}</p>
   <p><button> {{ washer.phone_number }}</button></p>
 
 </div>
 
 <ul type = "square">
-    <h1>All Orders({{ all_salary }}$):</h1>
-{% for ord in washer.order.all %}
-        <li>order time:{{ ord.order_time }}  -- order completion time:{{ ord.completion_time }} </li>
-{% endfor %}
+    <p>All Orders({{ all_money }}$):</p>
+    <p>Monthly Made ({{ monthly_money }}$):</p>
+    <p>Yearly Made ({{ yearly_money }}$):</p>
 
 </ul>
-
-
-<ul type = "square">
-<h1>Orders of This Week({{ week_salary}}$) :</h1>
-{% for ord in orders_week %}
-<li>order time:{{ ord.order_time }}  -- order completion time:{{ ord.completion_time }} </li>
-{% endfor %}
-</ul>
-
-<ul type = "square">
-<h1>Orders of This Month ({{ month_salary }}$):</h1>
-{% for ord in orders_month %}
-    <li>order time:{{ ord.order_time}}  -- order completion time:{{ ord.completion_time }} </li>
-{% endfor %}
-
-</ul>
-
-<ul type = "square">
-<h1>Orders of This Year({{ year_salary }}$) :</h1>
-{% for ord in orders_year %}
-        <li>order time:{{ ord.order_time }}  -- order completion time:{{ ord.completion_time }} </li>
-{% endfor %}
-
-</ul>
+        </div>
+    </div>
 
 </body>
 </html>
 
-
+{% endblock %}
 
 
 
