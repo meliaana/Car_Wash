@@ -92,6 +92,7 @@ def washer_detail(request, pk):
                   context={
                       "form": order_form,
                       "washer": washer,
+                      "orders": washer.order.all(),
                       **money_made
                   })
 

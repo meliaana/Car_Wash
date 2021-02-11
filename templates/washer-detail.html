@@ -134,12 +134,17 @@ button:hover, a:hover {
           <p class="title"> Washer </p>
           <p>{{ washer.car_wash }}</p>
             <p>Base Salary:{{ washer.base_salary }}$</p>
-          <p>{{ washer.percentage }}</p>
+          <p>{{ washer.percentage }}%</p>
           <p><button> {{ washer.phone_number }}</button></p>
     </div>
   </div>
-  <div class="col-sm-4">
-      My orders:
+  <div class="col-sm-6">
+     <h1>My orders:</h1>
+      <ul>
+        {% for order in orders %}
+          <li><a href="#">{{ order }}</a> </li>
+         {%endfor%}
+      </ul>
 
   </div>
 
