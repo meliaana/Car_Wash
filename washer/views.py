@@ -1,10 +1,10 @@
 from decimal import Decimal
-from .forms import CarWashForm, CarWashToTypeForm, OrderForm
+from .forms import CarWashForm, CarWashToTypeForm, OrderForm, CarForm
 from .choices import CarTypeChoices
 
 from django.http import HttpResponse
 from django.shortcuts import render
-from washer.models import Washer, CarWash, CarWashToType, Order
+from washer.models import Washer, CarWash, CarWashToType, Order, Car
 from datetime import datetime, date
 from django.db.models import Sum, ExpressionWrapper, DecimalField, F, Q
 
@@ -96,3 +96,21 @@ def washer_detail(request, pk):
                       **money_made
                   })
 
+
+def car_list_view(request):
+    form = CarForm()
+    cars = Car.objects.all()
+
+    if request.method == 'POST':
+        form = CarForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+    return render(
+        request,
+        "Cars/cars_listing.html",
+        context={
+            "form": form,
+            "cars": cars,
+        }
+    )

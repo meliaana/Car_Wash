@@ -1,5 +1,6 @@
 from django import forms
 from .models import CarWashToType, CarWash, Car, Washer, Order
+from .choices import CarTypeChoices
 
 
 class CarWashForm(forms.ModelForm):
@@ -31,3 +32,11 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = ['car_wash', 'car', 'washer', 'order_time']
 
+
+class CarForm(forms.ModelForm):
+    plate = forms.CharField(max_length=10)
+    type = forms.ChoiceField(choices=CarTypeChoices.choices)
+
+    class Meta:
+        model = Car
+        fields = ['plate', 'type']
