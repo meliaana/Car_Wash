@@ -1,9 +1,32 @@
 from decimal import Decimal
+from .forms import CarWashForm, CarWashToTypeForm, OrderForm
+from .choices import CarTypeChoices
 
+from django.http import HttpResponse
 from django.shortcuts import render
 from washer.models import Washer, CarWash, CarWashToType, Order
 from datetime import datetime, date
 from django.db.models import Sum, ExpressionWrapper, DecimalField, F, Q
+
+
+def test(request):
+    car_wash_form = CarWashForm()
+    price_form = CarWashToTypeForm()
+    cars_lists = list(zip(*CarTypeChoices.choices))[1]  # @TODO: change
+
+    if request.method == 'POST':
+        car_wash_form = CarWashForm(request.POST)
+        price_form = CarWashToTypeForm(request.POST)
+
+        if car_wash_form.is_valid() and price_form.is_valid():
+            new_car_wash = car_wash_form.save()
+            car_wash_pk = new_car_wash.pk
+            print(price_form)
+
+    context = {"car_wash_form": car_wash_form,
+               "price_form": price_form,
+               "car_types": cars_lists}
+    return render(request, "test.html", context=context)
 
 
 def car_wash_listing(request):
@@ -40,6 +63,7 @@ def washer_listing(request):
 
 
 def washer_detail(request, pk):
+    order_form = OrderForm()
     washer = Washer.objects.get(pk=pk)
 
     washer_salary = washer.base_salary
@@ -57,9 +81,17 @@ def washer_detail(request, pk):
                                        yearly_money=washer.percentage * Sum('price',
                                                                             filter=Q(completion_time__year=year)),
                                        )
+
+    if request.method == 'POST':
+        order_form = OrderForm(request.POST)
+        if order_form.is_valid():
+            order_form.save()
+
     return render(request,
                   "washer-detail.html",
                   context={
+                      "form": order_form,
                       "washer": washer,
                       **money_made
                   })
+

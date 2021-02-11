@@ -83,3 +83,6 @@ class CarWashToType(models.Model):
     type = models.PositiveSmallIntegerField(choices=CarTypeChoices.choices)
 
     price = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f'{self.type}'
