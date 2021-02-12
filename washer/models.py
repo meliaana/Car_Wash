@@ -71,7 +71,7 @@ class Order(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'Order of: {self.order_time}'
+        return f'Order of: {self.order_time} {self.pk}'
 
     class Meta:
         verbose_name = _('Order')
