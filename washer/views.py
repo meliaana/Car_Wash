@@ -1,4 +1,7 @@
 from decimal import Decimal
+
+from django.core.paginator import Paginator
+
 from .forms import CarWashForm, CarWashToTypeForm, OrderForm, CarForm
 from .choices import CarTypeChoices
 
@@ -101,6 +104,10 @@ def car_list_view(request):
     form = CarForm()
     cars = Car.objects.all()
 
+    paginator = Paginator(cars, 16)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     if request.method == 'POST':
         form = CarForm(request.POST)
         if form.is_valid():
@@ -112,5 +119,7 @@ def car_list_view(request):
         context={
             "form": form,
             "cars": cars,
-        }
+            'page_obj': page_obj
+        },
+
     )

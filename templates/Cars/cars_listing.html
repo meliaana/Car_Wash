@@ -119,19 +119,41 @@ body {font-family: Arial, Helvetica, sans-serif;}
     {% endfor %}
 </div>
 
-<button class="open-button" onclick="openForm()">New Order</button>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+
+<button class="open-button" onclick="openForm()">New Car</button>
 
 <div class="form-popup" id="myForm">
     <form action="" method="post" class="form-container">
     {% csrf_token %}
-    <h1>Create Order:</h1>
-
+    <h1>Create a car:</h1>
         {{ form }}
 
-    <input type="submit" value="Submit">
+        <button type="submit" value="Submit" class="btn cancel">Submit</button>
     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
   </form>
 </div>
+
+
+
 
 
 <script>
