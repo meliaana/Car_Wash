@@ -13,13 +13,17 @@ class CarWashForm(forms.ModelForm):
         fields = ['name', 'location', 'cabins']
 
 
-class CarWashToTypeForm(forms.ModelForm):
-    type = forms.CharField(max_length=100)
-    price = forms.IntegerField()
+class CarWashToTypeForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for car_type in CarTypeChoices:
+            self.fields[car_type.name] = forms.IntegerField(required=True)
 
-    class Meta:
-        model = CarWashToType
-        fields = ['type', 'price']
+    def save(self, car_wash_pk: int):
+        for car_type in CarTypeChoices:
+            price = self.cleaned_data[car_type.name]
+            a = CarWashToType(type=car_type, price=price, car_washer=CarWash.objects.get(pk=car_wash_pk))
+            a.save()
 
 
 class OrderForm(forms.ModelForm):

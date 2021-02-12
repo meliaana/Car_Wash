@@ -12,7 +12,7 @@ from datetime import datetime, date
 from django.db.models import Sum, ExpressionWrapper, DecimalField, F, Q
 
 
-def test(request):
+def addcarwash(request):
     car_wash_form = CarWashForm()
     price_form = CarWashToTypeForm()
     cars_lists = list(zip(*CarTypeChoices.choices))[1]  # @TODO: change
@@ -24,12 +24,12 @@ def test(request):
         if car_wash_form.is_valid() and price_form.is_valid():
             new_car_wash = car_wash_form.save()
             car_wash_pk = new_car_wash.pk
-            print(price_form)
+            price_form.save(car_wash_pk)
 
     context = {"car_wash_form": car_wash_form,
                "price_form": price_form,
                "car_types": cars_lists}
-    return render(request, "test.html", context=context)
+    return render(request, "Car_Washes/AddCarwash.html", context=context)
 
 
 def car_wash_listing(request):
@@ -104,7 +104,7 @@ def car_list_view(request):
     form = CarForm()
     cars = Car.objects.all()
 
-    paginator = Paginator(cars, 16)
+    paginator = Paginator(cars, 12)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
