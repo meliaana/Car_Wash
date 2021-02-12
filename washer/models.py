@@ -31,7 +31,10 @@ class Washer(models.Model):
     phone_number = models.CharField(verbose_name=_('Phone number'), max_length=125, default='')
     gender = models.PositiveSmallIntegerField(choices=GenderChoices.choices,
                                               default=GenderChoices.Other)
-    base_salary = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    base_salary = models.DecimalField(
+        max_digits=8, decimal_places=2, default=0,
+        help_text="მოჭრილი ხელფასი თვეში"
+    )
     percentage = models.DecimalField(max_digits=3, decimal_places=2, default=0)
 
     def __str__(self):

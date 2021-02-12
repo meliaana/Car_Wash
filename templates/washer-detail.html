@@ -134,7 +134,7 @@ button:hover, a:hover {
           <p class="title"> Washer </p>
           <p>{{ washer.car_wash }}</p>
             <p>Base Salary:{{ washer.base_salary }}$</p>
-          <p>{{ washer.percentage }}%</p>
+          <p>{% widthratio washer.percentage 1 100 %} %</p>
           <p><button> {{ washer.phone_number }}</button></p>
     </div>
   </div>
@@ -150,10 +150,9 @@ button:hover, a:hover {
 
 </div>
 <ul type = "square">
-    <p>All Orders({{ all_money }}$):</p>
-    <p>Monthly Made ({{ monthly_money }}$):</p>
-    <p>Yearly Made ({{ yearly_money }}$):</p>
-
+    <li><p>All Orders({{ all_money|default_if_none:0 }}$):</p></li>
+    <li><p>Monthly Made ({{ monthly_money|default_if_none:0 }}$):</p></li>
+    <li><p>Yearly Made ({{ yearly_money|default_if_none:0 }}$):</p></li>
 </ul>
 
 

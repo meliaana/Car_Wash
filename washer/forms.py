@@ -30,7 +30,7 @@ class OrderForm(forms.ModelForm):
     car_wash = forms.ModelChoiceField(queryset=CarWash.objects.all())
     car = forms.ModelChoiceField(queryset=Car.objects.all())
     washer = forms.ModelChoiceField(queryset=Washer.objects.all())
-    order_time = forms.DateTimeField()
+    order_time = forms.DateTimeField(widget=forms.TextInput(attrs={'type': 'datetime-local'}))
 
     class Meta:
         model = Order

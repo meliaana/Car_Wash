@@ -15,7 +15,6 @@ from django.db.models import Sum, ExpressionWrapper, DecimalField, F, Q
 def addcarwash(request):
     car_wash_form = CarWashForm()
     price_form = CarWashToTypeForm()
-    cars_lists = list(zip(*CarTypeChoices.choices))[1]  # @TODO: change
 
     if request.method == 'POST':
         car_wash_form = CarWashForm(request.POST)
@@ -26,9 +25,10 @@ def addcarwash(request):
             car_wash_pk = new_car_wash.pk
             price_form.save(car_wash_pk)
 
-    context = {"car_wash_form": car_wash_form,
-               "price_form": price_form,
-               "car_types": cars_lists}
+    context = {
+        "car_wash_form": car_wash_form,
+        "price_form": price_form
+    }
     return render(request, "Car_Washes/AddCarwash.html", context=context)
 
 
