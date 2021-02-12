@@ -89,7 +89,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 <div class="container">
 
-    {% for car in cars %}
+    {% for car in page_obj %}
         {% if forloop.counter0|divisibleby:4 %}
             <div class="row">
         {% endif %}
@@ -98,10 +98,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
         <div class="row">
             <div class="col s12 m7 l9">
                 <div class="card">
-                    <div class="card-image">
-{#                        <img src="{{ washer.image.url }}">#}
-{#                        <span class="card-title">{{ washer.get_full_name}}</span>#}
-                    </div>
                     <div class="card-content">
                         <p> {{ car.plate}}</p>
                         <p> {{ car.type}}</p>

@@ -16,11 +16,7 @@
     <div class="fieldWrapper">
         <label> Cabin Numbers:</label> {{ car_wash_form.cabins }}
     </div>
-    {% for type in car_types %}
-        <div class="fieldWrapper">
-            <label> {{ type }}</label> {{ price_form.price }}
-        </div>
-     {% endfor %}
+    {{ price_form.as_p }}
 
     <input type="submit" value="Submit">
 </form>
